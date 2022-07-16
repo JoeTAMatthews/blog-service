@@ -11,14 +11,14 @@ The capabilities of this service are as follows:
 ## Technologies Used:
 
 ### Programming Languages:
-    - Kotlin
+- Kotlin
 
 ### Frameworks
-    - Spring Webflux
+- Spring Webflux
     
 ### Databases
-    - MongoDB
+- MongoDB
 
 ### DevOps
-    - Docker
-    - Kubernetes
+- Docker
+- Kubernetes
