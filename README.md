@@ -5,7 +5,6 @@ The capabilities of this service are as follows:
 
 - Blog post storage
 - Image storage
-- Video storage
 - View counting
 
 ## Technologies Used:
