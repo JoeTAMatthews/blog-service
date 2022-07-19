@@ -14,17 +14,14 @@ import java.util.UUID
 class DraftController @Autowired constructor(private val draftService: DraftService) {
 
     @PostMapping
-    fun postDraft(@RequestBody dto: PostDTO): Mono<Draft> = Mono.empty()
-
-    @PutMapping("/{id}")
-    fun putDraft(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Draft> = Mono.empty()
+    fun postDraft(@RequestBody dto: PostDTO): Mono<Draft> = draftService.addDraft(dto)
 
     @GetMapping("/{id}")
-    fun getDraft(@PathVariable id: UUID): Mono<Draft> = Mono.empty()
+    fun getDraft(@PathVariable id: UUID): Mono<Draft> = draftService.getDraft(id)
 
     @GetMapping("/all")
-    fun getDrafts(): Flux<Draft> = Flux.empty()
+    fun getDrafts(): Flux<Draft> = draftService.getDrafts()
 
     @DeleteMapping("/{id}")
-    fun deleteDraft(@PathVariable id: UUID): Mono<Draft> = Mono.empty()
+    fun deleteDraft(@PathVariable id: UUID): Mono<Draft> = draftService.removeDraft(id)
 }

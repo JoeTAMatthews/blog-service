@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
 @Document("blog_posts")
-data class Post(@Id val id: UUID, var name: String, var content: String, val tags: MutableList<String> = mutableListOf(), var updated: Long = System.currentTimeMillis(), var created: Long = System.currentTimeMillis()) {
+data class Post(@Id val id: UUID, var name: String, var title: String, var content: String, val tags: MutableList<String> = mutableListOf(), var updated: Long = System.currentTimeMillis(), var created: Long = System.currentTimeMillis()) {
 
-    constructor(dto: PostDTO): this(UUID.randomUUID(), dto.name, dto.content)
+    constructor(dto: PostDTO): this(UUID.randomUUID(), dto.title, dto.name, dto.content)
 
     fun updateName(name: String): Post {
         this.name = name

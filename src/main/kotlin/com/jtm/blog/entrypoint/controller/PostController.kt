@@ -21,17 +21,17 @@ import java.util.*
 class PostController @Autowired constructor(private val postService: PostService) {
 
     @PostMapping
-    fun addPost(@RequestBody dto: PostDTO): Mono<Post> = Mono.empty()
+    fun addPost(@RequestBody dto: PostDTO): Mono<Post> = postService.addPost(dto)
 
     @PutMapping("/{id}")
     fun putPost(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = Mono.empty()
 
     @GetMapping("/{id}")
-    fun getPost(@PathVariable id: UUID): Mono<Post> = Mono.empty()
+    fun getPost(@PathVariable id: UUID): Mono<Post> = postService.getPost(id)
 
     @GetMapping("/all")
-    fun getPosts(): Flux<Post> = Flux.empty()
+    fun getPosts(): Flux<Post> = postService.getPosts()
 
     @DeleteMapping("/{id}")
-    fun deletePost(@PathVariable id: UUID): Mono<Post> = Mono.empty()
+    fun deletePost(@PathVariable id: UUID): Mono<Post> = postService.removePost(id)
 }
