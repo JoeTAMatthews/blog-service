@@ -21,8 +21,6 @@ class DraftService @Autowired constructor(private val draftRepository: DraftRepo
             .switchIfEmpty(Mono.defer { draftRepository.save(Draft(UUID.randomUUID(), Post(postDTO))) })
     }
 
-    fun updateDraft(id: UUID, postDTO: PostDTO): Mono<Draft> = Mono.empty()
-
     fun getDraft(id: UUID): Mono<Draft> {
         return draftRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(DraftNotFound()) })

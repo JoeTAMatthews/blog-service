@@ -4,6 +4,7 @@ import com.jtm.blog.core.usecase.exception.draft.DraftAlreadyFound
 import com.jtm.blog.core.usecase.exception.draft.DraftNotFound
 import com.jtm.blog.core.util.TestUtil
 import com.jtm.blog.data.service.DraftService
+import com.jtm.blog.data.service.DraftUpdateService
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.times
@@ -32,8 +33,12 @@ class DraftControllerTest {
     @MockBean
     lateinit var draftService: DraftService
 
+    @MockBean
+    lateinit var updateService: DraftUpdateService
+
     private val dto = TestUtil.createPostDTO()
     private val created = TestUtil.createDraft()
+    private val updated = TestUtil.updateDraft()
 
     @Test
     fun postDraft_shouldReturnOk() {
@@ -65,6 +70,135 @@ class DraftControllerTest {
 
         verify(draftService, times(1)).addDraft(anyOrNull())
         verifyNoMoreInteractions(draftService)
+    }
+
+    @Test
+    fun putName_shouldReturnNotFound() {
+        `when`(updateService.updateName(anyOrNull(), anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/name")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isNotFound
+
+        verify(updateService, times(1)).updateName(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putName_shouldReturn() {
+        `when`(updateService.updateName(anyOrNull(), anyOrNull())).thenReturn(Mono.just(updated))
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/name")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.post.name").isEqualTo("update_blog")
+            .jsonPath("$.post.title").isEqualTo("Update Blog")
+            .jsonPath("$.post.content").isEqualTo("<h1>Update Content</h1>")
+
+        verify(updateService, times(1)).updateName(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putTitle_shouldReturnNotFound() {
+        `when`(updateService.updateTitle(anyOrNull(), anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/title")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isNotFound
+
+        verify(updateService, times(1)).updateTitle(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putTitle_shouldReturn() {
+        `when`(updateService.updateTitle(anyOrNull(), anyOrNull())).thenReturn(Mono.just(updated))
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/title")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.post.name").isEqualTo("update_blog")
+            .jsonPath("$.post.title").isEqualTo("Update Blog")
+            .jsonPath("$.post.content").isEqualTo("<h1>Update Content</h1>")
+
+        verify(updateService, times(1)).updateTitle(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putContent_shouldReturnNotFound() {
+        `when`(updateService.updateContent(anyOrNull(), anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/content")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isNotFound
+
+        verify(updateService, times(1)).updateContent(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putContent_shouldReturn() {
+        `when`(updateService.updateContent(anyOrNull(), anyOrNull())).thenReturn(Mono.just(updated))
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/content")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.post.name").isEqualTo("update_blog")
+            .jsonPath("$.post.title").isEqualTo("Update Blog")
+            .jsonPath("$.post.content").isEqualTo("<h1>Update Content</h1>")
+
+        verify(updateService, times(1)).updateContent(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putTags_shouldReturnNotFound() {
+        `when`(updateService.updateTags(anyOrNull(), anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/tags")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isNotFound
+
+        verify(updateService, times(1)).updateTags(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
+    }
+
+    @Test
+    fun putTags_shouldReturn() {
+        `when`(updateService.updateTags(anyOrNull(), anyOrNull())).thenReturn(Mono.just(updated))
+
+        testclient.put()
+            .uri("/draft/update/${UUID.randomUUID()}/tags")
+            .bodyValue(dto)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.post.name").isEqualTo("update_blog")
+            .jsonPath("$.post.title").isEqualTo("Update Blog")
+            .jsonPath("$.post.content").isEqualTo("<h1>Update Content</h1>")
+            .jsonPath("$.post.tags").isArray
+
+        verify(updateService, times(1)).updateTags(anyOrNull(), anyOrNull())
+        verifyNoMoreInteractions(updateService)
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.jtm.blog.entrypoint.controller
 import com.jtm.blog.core.domain.dto.PostDTO
 import com.jtm.blog.core.domain.entity.Post
 import com.jtm.blog.data.service.PostService
+import com.jtm.blog.data.service.PostUpdateService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,13 +19,22 @@ import java.util.*
 
 @RestController
 @RequestMapping("/post")
-class PostController @Autowired constructor(private val postService: PostService) {
+class PostController @Autowired constructor(private val postService: PostService, private val updateService: PostUpdateService) {
 
     @PostMapping
     fun addPost(@RequestBody dto: PostDTO): Mono<Post> = postService.addPost(dto)
 
-    @PutMapping("/{id}")
-    fun putPost(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = Mono.empty()
+    @PutMapping("/update/{id}/name")
+    fun putName(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = updateService.updateName(id, dto)
+
+    @PutMapping("/update/{id}/title")
+    fun putTitle(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = updateService.updateTitle(id, dto)
+
+    @PutMapping("/update/{id}/content")
+    fun putContent(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = updateService.updateContent(id, dto)
+
+    @PutMapping("/update/{id}/tags")
+    fun putTags(@PathVariable id: UUID, @RequestBody dto: PostDTO): Mono<Post> = updateService.updateTags(id, dto)
 
     @GetMapping("/{id}")
     fun getPost(@PathVariable id: UUID): Mono<Post> = postService.getPost(id)

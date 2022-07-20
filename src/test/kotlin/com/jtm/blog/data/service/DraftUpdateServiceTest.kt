@@ -21,7 +21,7 @@ import java.util.*
 class DraftUpdateServiceTest {
 
     private val draftRepository: DraftRepository = mock()
-    private val draftUpdateService = DraftUpdateService(draftRepository)
+    private val updateService = DraftUpdateService(draftRepository)
 
     private val dto = TestUtil.updatePostDTO()
     private val created = TestUtil.createDraft()
@@ -31,7 +31,7 @@ class DraftUpdateServiceTest {
     fun updateName_shouldThrowNotFound() {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.empty())
 
-        val returned = draftUpdateService.updateName(UUID.randomUUID(), dto)
+        val returned = updateService.updateName(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -46,7 +46,7 @@ class DraftUpdateServiceTest {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.just(created))
         `when`(draftRepository.save(anyOrNull())).thenReturn(Mono.just(updated))
 
-        val returned = draftUpdateService.updateName(UUID.randomUUID(), dto)
+        val returned = updateService.updateName(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -60,7 +60,7 @@ class DraftUpdateServiceTest {
     fun updateTitle_shouldThrowNotFound() {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.empty())
 
-        val returned = draftUpdateService.updateTitle(UUID.randomUUID(), dto)
+        val returned = updateService.updateTitle(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -75,7 +75,7 @@ class DraftUpdateServiceTest {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.just(created))
         `when`(draftRepository.save(anyOrNull())).thenReturn(Mono.just(updated))
 
-        val returned = draftUpdateService.updateTitle(UUID.randomUUID(), dto)
+        val returned = updateService.updateTitle(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -89,7 +89,7 @@ class DraftUpdateServiceTest {
     fun updateContent_shouldThrowNotFound() {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.empty())
 
-        val returned = draftUpdateService.updateContent(UUID.randomUUID(), dto)
+        val returned = updateService.updateContent(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -104,7 +104,7 @@ class DraftUpdateServiceTest {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.just(created))
         `when`(draftRepository.save(anyOrNull())).thenReturn(Mono.just(updated))
 
-        val returned = draftUpdateService.updateContent(UUID.randomUUID(), dto)
+        val returned = updateService.updateContent(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -118,7 +118,7 @@ class DraftUpdateServiceTest {
     fun updateTags_shouldThrowNotFound() {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.empty())
 
-        val returned = draftUpdateService.updateTags(UUID.randomUUID(), dto)
+        val returned = updateService.updateTags(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)
@@ -133,7 +133,7 @@ class DraftUpdateServiceTest {
         `when`(draftRepository.findById(any(UUID::class.java))).thenReturn(Mono.just(created))
         `when`(draftRepository.save(anyOrNull())).thenReturn(Mono.just(updated))
 
-        val returned = draftUpdateService.updateTags(UUID.randomUUID(), dto)
+        val returned = updateService.updateTags(UUID.randomUUID(), dto)
 
         verify(draftRepository, times(1)).findById(any(UUID::class.java))
         verifyNoMoreInteractions(draftRepository)

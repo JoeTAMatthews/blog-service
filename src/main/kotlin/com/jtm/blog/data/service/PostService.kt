@@ -20,8 +20,6 @@ class PostService @Autowired constructor(private val postRepository: PostReposit
             .switchIfEmpty(Mono.defer { postRepository.save(Post(dto)) })
     }
 
-    fun updatePost(id: UUID, postDTO: PostDTO): Mono<Post> = Mono.empty()
-
     fun getPost(id: UUID): Mono<Post> {
         return postRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(PostNotFound()) })
