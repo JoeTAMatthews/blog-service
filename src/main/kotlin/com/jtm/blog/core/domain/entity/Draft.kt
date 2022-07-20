@@ -12,13 +12,18 @@ data class Draft(@Id val id: UUID, var post: Post) {
         return this
     }
 
+    fun updateTitle(title: String): Draft {
+        this.post.updateTitle(title)
+        return this
+    }
+
     fun updateContent(content: String): Draft {
         this.post.updateContent(content)
         return this
     }
 
-    fun addTag(tag: String): Draft {
-        this.post.addTag(tag)
+    fun updateTags(tags: MutableList<String>): Draft {
+        this.post.updateTags(tags)
         return this
     }
 }
