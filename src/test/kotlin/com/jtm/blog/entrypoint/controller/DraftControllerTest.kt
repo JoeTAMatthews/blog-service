@@ -59,20 +59,6 @@ class DraftControllerTest {
     }
 
     @Test
-    fun postDraft_shouldReturnFound() {
-        `when`(draftService.addDraft(anyOrNull())).thenReturn(Mono.error { DraftAlreadyFound() })
-
-        testclient.post()
-            .uri("/draft")
-            .bodyValue(dto)
-            .exchange()
-            .expectStatus().isFound
-
-        verify(draftService, times(1)).addDraft(anyOrNull())
-        verifyNoMoreInteractions(draftService)
-    }
-
-    @Test
     fun putName_shouldReturnNotFound() {
         `when`(updateService.updateName(anyOrNull(), anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
 

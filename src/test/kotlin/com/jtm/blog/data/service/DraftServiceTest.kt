@@ -26,27 +26,12 @@ class DraftServiceTest {
     private val created = TestUtil.createDraft()
 
     @Test
-    fun addDraft_shouldThrowFound_whenSearching() {
-        `when`(draftRepository.findByName(anyString())).thenReturn(Mono.just(created))
-
-        val returned = draftService.addDraft(dto)
-
-        verify(draftRepository, times(1)).findByName(anyString())
-        verifyNoMoreInteractions(draftRepository)
-
-        StepVerifier.create(returned)
-            .expectError(DraftAlreadyFound::class.java)
-            .verify()
-    }
-
-    @Test
     fun addDraft_shouldSucceed() {
-        `when`(draftRepository.findByName(anyString())).thenReturn(Mono.empty())
         `when`(draftRepository.save(anyOrNull())).thenReturn(Mono.just(created))
 
         val returned = draftService.addDraft(dto)
 
-        verify(draftRepository, times(1)).findByName(anyString())
+        verify(draftRepository, times(1)).save(anyOrNull())
         verifyNoMoreInteractions(draftRepository)
 
         StepVerifier.create(returned)

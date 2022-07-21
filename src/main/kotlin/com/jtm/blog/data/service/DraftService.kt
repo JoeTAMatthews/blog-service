@@ -16,9 +16,7 @@ import java.util.*
 class DraftService @Autowired constructor(private val draftRepository: DraftRepository) {
 
     fun addDraft(postDTO: PostDTO): Mono<Draft> {
-        return draftRepository.findByName(postDTO.name)
-            .flatMap<Draft?> { Mono.error(DraftAlreadyFound()) }
-            .switchIfEmpty(Mono.defer { draftRepository.save(Draft(UUID.randomUUID(), Post(postDTO))) })
+        return draftRepository.save(Draft(UUID.randomUUID(), Post(postDTO)))
     }
 
     fun getDraft(id: UUID): Mono<Draft> {
