@@ -1,5 +1,6 @@
 package com.jtm.blog.entrypoint.controller
 
+import com.jtm.blog.core.usecase.exception.draft.DraftNotFound
 import com.jtm.blog.core.usecase.exception.post.PostAlreadyFound
 import com.jtm.blog.core.usecase.exception.post.PostNotFound
 import com.jtm.blog.core.util.TestUtil
@@ -39,6 +40,36 @@ class PostControllerTest {
     private val dto = TestUtil.createPostDTO()
     private val created = TestUtil.createPost()
     private val updated = TestUtil.updatePost()
+
+    @Test
+    fun publishDraft_shouldReturnOk() {
+        `when`(postService.publishDraft(anyOrNull())).thenReturn(Mono.just(created))
+
+        testClient.get()
+            .uri("/post/publish/${UUID.randomUUID()}")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.name").isEqualTo("test_blog")
+            .jsonPath("$.title").isEqualTo("Test Blog")
+            .jsonPath("$.content").isEqualTo("<h1>Test Content</h1>")
+
+        verify(postService, times(1)).publishDraft(anyOrNull())
+        verifyNoMoreInteractions(postService)
+    }
+
+    @Test
+    fun publishDraft_shouldReturnNotFound() {
+        `when`(postService.publishDraft(anyOrNull())).thenReturn(Mono.error { DraftNotFound() })
+
+        testClient.get()
+            .uri("/post/publish/${UUID.randomUUID()}")
+            .exchange()
+            .expectStatus().isNotFound
+
+        verify(postService, times(1)).publishDraft(anyOrNull())
+        verifyNoMoreInteractions(postService)
+    }
 
     @Test
     fun addPost_shouldReturnOk() {

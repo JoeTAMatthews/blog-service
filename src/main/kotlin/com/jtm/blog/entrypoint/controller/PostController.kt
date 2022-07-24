@@ -21,6 +21,9 @@ import java.util.*
 @RequestMapping("/post")
 class PostController @Autowired constructor(private val postService: PostService, private val updateService: PostUpdateService) {
 
+    @GetMapping("/publish/{id}")
+    fun publishDraft(@PathVariable id: UUID): Mono<Post> = postService.publishDraft(id)
+
     @PostMapping
     fun addPost(@RequestBody dto: PostDTO): Mono<Post> = postService.addPost(dto)
 
