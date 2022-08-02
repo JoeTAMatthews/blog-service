@@ -3,7 +3,7 @@ Personal blog service to serve blog posts over REST API.
 
 The capabilities of this service are as follows:
 
-- Blog post storage
+- Blog Post CRUD
 - Image storage
 - View counting
 
