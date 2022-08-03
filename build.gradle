@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'com.jtm.blog'
-version '0.23'
+version '0.24'
 
 repositories {
     mavenCentral()
@@ -28,6 +28,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-data-mongodb-reactive"
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client'
+
     implementation 'io.sentry:sentry:6.0.0'
     implementation 'com.google.code.gson:gson:2.9.0'
 
