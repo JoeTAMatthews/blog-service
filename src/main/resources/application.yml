@@ -13,3 +13,8 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
   profiles:
     active: ${PROFILE}
+  cloud:
+    kubernetes:
+      enabled: false
+      discovery:
+        enabled: false

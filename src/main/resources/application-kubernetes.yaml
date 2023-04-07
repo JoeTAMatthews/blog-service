@@ -3,3 +3,8 @@ spring:
     mongodb:
       uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/admin
       database: ${MONGO_DATABASE}
+  cloud:
+    kubernetes:
+      enabled: true
+      discovery:
+        enabled: true
