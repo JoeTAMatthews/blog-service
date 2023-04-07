@@ -9,7 +9,6 @@ import com.jtm.blog.core.util.TestUtil
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
-import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -21,7 +20,7 @@ import reactor.test.StepVerifier
 import java.util.*
 
 @RunWith(SpringRunner::class)
-class PostServiceTest {
+class PostServiceUnitTest {
 
     private val postRepository: PostRepository = mock()
     private val draftRepository: DraftRepository = mock()

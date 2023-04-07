@@ -26,7 +26,7 @@ import java.util.*
 @RunWith(SpringRunner::class)
 @WebFluxTest(PostController::class)
 @AutoConfigureWebTestClient
-class PostControllerTest {
+class PostControllerUnitTest {
 
     @Autowired
     lateinit var testClient: WebTestClient

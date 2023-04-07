@@ -1,13 +1,11 @@
 package com.jtm.blog.data.service
 
-import com.jtm.blog.core.usecase.exception.draft.DraftAlreadyFound
 import com.jtm.blog.core.usecase.exception.draft.DraftNotFound
 import com.jtm.blog.core.usecase.repository.DraftRepository
 import com.jtm.blog.core.util.TestUtil
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.*
@@ -17,7 +15,7 @@ import reactor.test.StepVerifier
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
-class DraftServiceTest {
+class DraftServiceUnitTest {
 
     private val draftRepository: DraftRepository = mock()
     private val draftService = DraftService(draftRepository)

@@ -18,7 +18,7 @@ import reactor.test.StepVerifier
 import java.util.*
 
 @RunWith(SpringRunner::class)
-class PostUpdateServiceTest {
+class PostUpdateServiceUnitTest {
 
     private val postRepository: PostRepository = mock()
     private val updateService = PostUpdateService(postRepository)

@@ -1,6 +1,5 @@
 package com.jtm.blog.entrypoint.controller
 
-import com.jtm.blog.core.usecase.exception.draft.DraftAlreadyFound
 import com.jtm.blog.core.usecase.exception.draft.DraftNotFound
 import com.jtm.blog.core.util.TestUtil
 import com.jtm.blog.data.service.DraftService
@@ -25,7 +24,7 @@ import java.util.*
 @RunWith(SpringRunner::class)
 @WebFluxTest(DraftController::class)
 @AutoConfigureWebTestClient
-class DraftControllerTest {
+class DraftControllerUnitTest {
 
     @Autowired
     lateinit var testclient: WebTestClient
