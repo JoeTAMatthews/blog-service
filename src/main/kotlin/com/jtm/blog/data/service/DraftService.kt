@@ -15,19 +15,46 @@ import java.util.*
 @Service
 class DraftService @Autowired constructor(private val draftRepository: DraftRepository) {
 
+    /**
+     * Add a draft using the data transfer object.
+     *
+     * @param postDTO                   the post data transfer object.
+     * @return Draft                    the draft saved.
+     */
     fun addDraft(postDTO: PostDTO): Mono<Draft> {
         return draftRepository.save(Draft(UUID.randomUUID(), Post(postDTO)))
     }
 
+    /**
+     * Get the draft using the uuid identifier.
+     *
+     * @param id                        the identifier.
+     * @return Draft                    the draft found.
+     *
+     * @throws DraftNotFound            if the draft is not found by the identifier.
+     */
     fun getDraft(id: UUID): Mono<Draft> {
         return draftRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(DraftNotFound()) })
     }
 
+    /**
+     * Get a list of the drafts.
+     *
+     * @return Draft                    the list of drafts
+     */
     fun getDrafts(): Flux<Draft> {
         return draftRepository.findAll()
     }
 
+    /**
+     * Remove the draft by the identifier.
+     *
+     * @param id                        the uuid identifier.
+     * @return Draft                    the draft removed.
+     *
+     * @throws DraftNotFound            if the draft is not found by the identifier.
+     */
     fun removeDraft(id: UUID): Mono<Draft> {
         return draftRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(DraftNotFound()) })
