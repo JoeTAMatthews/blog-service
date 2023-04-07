@@ -1,6 +1,7 @@
 package com.jtm.blog.data.service
 
 import com.jtm.blog.BlogApplication
+import com.jtm.blog.core.domain.entity.Draft
 import com.jtm.blog.core.usecase.exception.draft.DraftNotFound
 import com.jtm.blog.core.usecase.exception.post.PostAlreadyFound
 import com.jtm.blog.core.usecase.exception.post.PostNotFound
@@ -56,7 +57,7 @@ class PostServiceIntegrationTest {
         val returned = postService.publishDraft(d.id)
 
         StepVerifier.create(returned)
-            .assertNext { TestUtil.assertPost(it) }
+            .assertNext { TestUtil.assertDraft(Draft(UUID.randomUUID(), it)) }
             .verifyComplete()
     }
 
